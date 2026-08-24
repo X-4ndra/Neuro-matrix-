@@ -1,0 +1,16 @@
+{
+  "name": "Alexandra's Neurosurgery Preparation Matrix",
+  "short_name": "Neuro Matrix",
+  "description": "Daily routine, Lower Sixth academics, languages, neuroscience, hydration and fitness manager.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0d1117",
+  "theme_color": "#0d1117",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": [
+    "education",
+    "productivity",
+    "health"
+  ]
+}
