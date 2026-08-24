@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Alexandra's Neurosurgery Preparation Matrix">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <title>Neuro Matrix</title>
+</head>
+
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div>
+      <span class="eyebrow">2026 / 2027 • LOWER SIXTH SCIENCE</span>
+      <h1>🧠 Alexandra's Neurosurgery Preparation Matrix</h1>
+      <p id="date" class="muted"></p>
+    </div>
+    <div class="online"><i></i> LOCAL</div>
+  </header>
+
+  <!-- TOP NAVIGATION -->
+  <nav class="tabs" id="tabs">
+    <button class="active" data-tab="home">⌂ Home</button>
+    <button data-tab="routine">📅 Routine</button>
+    <button data-tab="academics">🎓 Academics</button>
+    <button data-tab="neuro">🧠 Neuro</button>
+    <button data-tab="languages">🌐 Languages</button>
+    <button data-tab="fitness">🏃 Fitness</button>
+    <button data-tab="settings">⚙ Settings</button>
+  </nav>
+
+  <main>
+
+    <!-- HOME -->
+    <section id="home" class="page active">
+      <div class="hero grid2">
+        <div>
+          <span class="eyebrow">TODAY'S FOCUS</span>
+          <h2 id="dailyFocus">Loading...</h2>
+          <p class="muted">17:30–19:00 Deep Syllabus Concept Study</p>
+        </div>
+        <div class="clock" id="clock">00:00</div>
+      </div>
+
+      <div class="grid3">
+        <div class="stat">
+          <span>MISSION</span>
+          <strong id="missionPercent">0%</strong>
+        </div>
+        <div class="stat">
+          <span>WATER</span>
+          <strong id="waterHome">0 / 2500 ml</strong>
+        </div>
+        <div class="stat">
+          <span>ROUTINE</span>
+          <strong id="routineHome">0%</strong>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">DAILY MISSION</span>
+            <h2>Today's Matrix</h2>
+          </div>
+        </div>
+        <div class="progress"><div id="missionBar"></div></div>
+        <div id="missionList"></div>
+      </article>
+
+      <div class="grid2">
+        <article class="card">
+          <span class="eyebrow">HYDRATION</span>
+          <h2 id="waterDisplay">0 ml</h2>
+          <div class="progress"><div id="waterBar"></div></div>
+          <div class="button-row">
+            <button onclick="addWater(250)">+250ml Glass</button>
+            <button onclick="addWater(500)">+500ml Bottle</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <span class="eyebrow">QUICK NEURO</span>
+          <h2>Today's Concept</h2>
+          <p><b>Neurons</b> communicate through electrical and chemical signalling. Understanding membrane potentials and synapses is foundational to neuroscience.</p>
+          <button onclick="openTab('neuro')">Open Neuro Academy →</button>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ROUTINE -->
+    <section id="routine" class="page">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">05:00 → 22:00</span>
+          <h2>Daily Routine</h2>
+        </div>
+        <button class="danger" onclick="resetRoutine()">Reset</button>
+      </div>
+
+      <article class="card">
+        <div class="progress"><div id="routineBar"></div></div>
+        <p id="routineSummary" class="muted"></p>
+      </article>
+
+      <div id="routineList" class="timeline"></div>
+    </section>
+
+
+    <!-- ACADEMICS -->
+    <section id="academics" class="page">
+
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">LOWER SIXTH SCIENCE</span>
+          <h2>Academic Matrix</h2>
+        </div>
+      </div>
+
+      <div class="subject-grid" id="subjectGrid"></div>
+
+      <article class="card">
+        <div class="section-title">
+          <div>
+            <span class="eyebrow">DIAGNOSTIC ENGINE</span>
+            <h2>Academic Quiz</h2>
+          </div>
+          <select id="quizCategory" onchange="startQuiz(this.value)">
+            <option>Pure Mathematics</option>
+            <option>Further Mathematics</option>
+            <option>Physics</option>
+            <option>Chemistry</option>
+            <option>Biology</option>
+          </select>
+        </div>
+
+        <div class="progress"><div id="quizBar"></div></div>
+        <p id="quizInfo" class="muted"></p>
+        <h3 id="question"></h3>
+        <div id="answers" class="answers"></div>
+        <div id="feedback"></div>
+        <button id="nextBtn" disabled onclick="nextQuestion()">Next Question →</button>
+      </article>
+
+      <article class="card timer-card">
+        <span class="eyebrow">GCE A-LEVEL PAST PAPER SPRINT</span>
+        <div id="timer" class="timer">60:00</div>
+        <div class="button-row">
+          <button onclick="startTimer()">Start</button>
+          <button onclick="pauseTimer()">Pause</button>
+          <button class="danger" onclick="resetTimer()">Reset</button>
+        </div>
+      </article>
+    </section>
+
+
+    <!-- NEURO -->
+    <section id="neuro" class="page">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">NEURO ACADEMY</span>
+          <h2>Neuroscience Knowledge Base</h2>
+        </div>
+      </div>
+
+      <div class="note-grid" id="neuroNotes"></div>
+
+      <article class="card">
+        <span class="eyebrow">MEDICAL GLOSSARY</span>
+        <h2>English → French</h2>
+
+        <div class="form-grid">
+          <input id="english" placeholder="English medical term">
+          <input id="french" placeholder="French equivalent">
+        </div>
+
+        <button onclick="addGlossary()">Save Translation</button>
+        <div id="glossary" class="list"></div>
+      </article>
+    </section>
+
+
+    
+    <!-- LANGUAGES -->
+<section id="languages" class="page">
+
+  <div class="language-header">
+    <div>
+      <span class="eyebrow">LANGUAGE ACADEMY</span>
+      <h2>🌐 Language Learning Matrix</h2>
+      <p class="muted">
+        Daily Korean • Ewondo • Nda Nda • Romanisation • Translation Practice
+      </p>
+    </div>
+
+    <div class="language-streak">
+      🔥 <strong id="languageStreak">0</strong>
+      <small>day streak</small>
+    </div>
+  </div>
+
+  <!-- LANGUAGE SELECTOR -->
+  <div class="language-selector">
+
+    <button class="language-select active"
+            onclick="selectLearningLanguage('korean',this)">
+      🇰🇷
+      <span>Korean</span>
+    </button>
+
+    <button class="language-select"
+            onclick="selectLearningLanguage('ewondo',this)">
+      🇨🇲
+      <span>Ewondo</span>
+    </button>
+
+    <button class="language-select"
+            onclick="selectLearningLanguage('ndanda',this)">
+      🇨🇲
+      <span>Nda Nda</span>
+    </button>
+
+  </div>
+
+
+  <!-- KOREAN -->
+  <div id="learning-korean" class="learning-language active">
+
+    <article class="language-word-card">
+
+      <span class="eyebrow">🇰🇷 KOREAN • TODAY'S WORD</span>
+
+      <div class="hangul">공부하다</div>
+
+      <div class="roman">
+        Gongbuhada
+      </div>
+
+      <h3>To study</h3>
+
+      <p class="translation">
+        공부하다 = to study
+      </p>
+
+      <div class="example">
+
+        <p>저는 매일 공부해요.</p>
+
+        <p class="roman">
+          Jeoneun maeil gongbuhaeyo.
+        </p>
+
+        <p class="muted">
+          I study every day.
+        </p>
+
+      </div>
+
+      <button onclick="speakKorean()">
+        🔊 Hear pronunciation
+      </button>
+
+    </article>
+
+
+    <article class="card">
+
+      <span class="eyebrow">DAILY KOREAN CHALLENGE</span>
+
+      <h2>학교 means...</h2>
+
+      <div class="language-answers">
+
+        <button onclick="languageQuiz(this,false)">
+          집 — Jip
+          <small>Home</small>
+        </button>
+
+        <button onclick="languageQuiz(this,true)">
+          학교 — Hakgyo
+          <small>School</small>
+        </button>
+
+        <button onclick="languageQuiz(this,false)">
+          책 — Chaek
+          <small>Book</small>
+        </button>
+
+        <button onclick="languageQuiz(this,false)">
+          선생님 — Seonsaengnim
+          <small>Teacher</small>
+        </button>
+
+      </div>
+
+      <div id="languageQuizFeedback"></div>
+
+    </article>
+
+
+    <article class="card">
+
+      <span class="eyebrow">KOREAN PHRASE</span>
+
+      <h2>오늘도 공부해요.</h2>
+
+      <p class="roman">
+        Oneuldo gongbuhaeyo.
+      </p>
+
+      <p>
+        I study today too.
+      </p>
+
+    </article>
+
+  </div>
+
+
+  <!-- EWONDO -->
+  <div id="learning-ewondo" class="learning-language">
+
+    <article class="language-word-card">
+
+      <span class="eyebrow">🇨🇲 EWONDO</span>
+
+      <h2>Maa dzigi kobo ewondo.</h2>
+
+      <p class="roman">
+        Mah dzee-gee ko-bo eh-won-do.
+      </p>
+
+      <p>
+        I do not speak Ewondo.
+      </p>
+
+      <hr>
+
+      <span class="eyebrow">CLASSROOM PHRASE</span>
+
+      <h3>
+        Ligege na biekobo emien ma dzigi duli abum aval afab!
+      </h3>
+
+      <p class="roman">
+        Lee-geh-geh nah bee-eh-ko-bo em-yen
+        mah dzee-gee doo-lee ah-boom!
+      </p>
+
+      <p>
+        Stop talking and let me work!
+      </p>
+
+    </article>
+
+  </div>
+
+
+  <!-- NDA NDA -->
+  <div id="learning-ndanda" class="learning-language">
+
+    <article class="language-word-card">
+
+      <span class="eyebrow">🇨🇲 NDA NDA</span>
+
+      <h2>Nda' mbe nù mbò bbo bba.</h2>
+
+      <p class="roman">
+        Ndah mbeh noo mboh bboh bbah.
+      </p>
+
+      <p>
+        I do not speak Nda Nda.
+      </p>
+
+      <hr>
+
+      <span class="eyebrow">CLASSROOM PHRASE</span>
+
+      <h3>
+        Gha pua nù, nzhé ngá nù nfa’ mbe.
+      </h3>
+
+      <p class="roman">
+        Gha poo-ah noo, n-zheh ngah noo n-fah mbeh.
+      </p>
+
+      <p>
+        Stop talking and let me work!
+      </p>
+
+    </article>
+
+  </div>
+
+
+  <!-- LANGUAGE PROGRESS -->
+  <article class="card">
+
+    <div class="section-title">
+
+      <div>
+        <span class="eyebrow">LANGUAGE PROGRESS</span>
+        <h2>Daily Progress</h2>
+      </div>
+
+      <strong id="languagePercent">0%</strong>
+
+    </div>
+
+    <div class="progress">
+      <div id="languageProgress"></div>
+    </div>
+
+    <div class="language-stats">
+
+      <div>
+        <strong id="wordsLearned">0</strong>
+        <span>Words</span>
+      </div>
+
+      <div>
+        <strong id="languageQuestions">0</strong>
+        <span>Questions</span>
+      </div>
+
+      <div>
+        <strong id="languageCorrect">0</strong>
+        <span>Correct</span>
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <!-- CLASSROOM CONTROL -->
+  <article class="card">
+
+    <span class="eyebrow">
+      CLASSROOM CONTROL / SILENCE MATRIX
+    </span>
+
+    <h2>🗣️ Quick Translation Matrix</h2>
+
+    <input
+      id="languageSearch"
+      oninput="renderLanguageTable()"
+      placeholder="Search language..."
+    >
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>I do not speak [Language]</th>
+            <th>Stop talking and let me work!</th>
+          </tr>
+        </thead>
+
+        <tbody id="languageTable"></tbody>
+
+      </table>
+
+    </div>
+
+  </article>
+
+</section>
+
+
+    <!-- FITNESS -->
+    <section id="fitness" class="page">
+      <div class="section-title">
+        <div>
+          <span class="eyebrow">KINETIC TRACKER</span>
+          <h2>Fitness Progress</h2>
+        </div>
+      </div>
+
+      <article class="card">
+        <div class="form-grid">
+          <input id="pushups" type="number" min="0" placeholder="Push-up max reps">
+          <input id="plank" type="number" min="0" placeholder="Plank seconds">
+          <select id="flexibility">
+            <option value="">Flexibility rating / 10</option>
+            <option>1</option><option>2</option><option>3</option>
+            <option>4</option><option>5</option><option>6</option>
+            <option>7</option><option>8</option><option>9</option>
+            <option>10</option>
+          </select>
+        </div>
+        <button onclick="saveFitness()">Save Training Entry</button>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">HISTORY</span>
+        <div id="fitnessHistory" class="list"></div>
+      </article>
+    </section>
+
+
+    <!-- SETTINGS -->
+    <section id="settings" class="page">
+      <article class="card">
+        <span class="eyebrow">MATRIX SETTINGS</span>
+        <h2>Local Data</h2>
+        <p class="muted">Your routine, hydration, quiz and fitness data are stored locally on this device.</p>
+
+        <div class="button-row">
+          <button onclick="requestNotifications()">Enable Hydration Notifications</button>
+          <button onclick="exportData()">Export Data</button>
+          <button class="danger" onclick="clearAllData()">Clear Local Data</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">PWA</span>
+        <h2>Offline Matrix</h2>
+        <p class="muted">
+          The application is designed to work offline after its assets have been cached by the service worker.
+        </p>
+      </article>
+    </section>
+
+  </main>
+</div>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
